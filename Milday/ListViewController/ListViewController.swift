@@ -18,6 +18,8 @@ class ListViewController: UIViewController {
         subviews()
         setupTableView()
         constraints()
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.title = "List of mildays"
         
     }
 
@@ -58,7 +60,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         //cell.selectionStyle = .none
         
-        cell.textLabel?.text = "Lorem Ipsum is simply dummy text of the printing."
+        
         return cell
     }
 
