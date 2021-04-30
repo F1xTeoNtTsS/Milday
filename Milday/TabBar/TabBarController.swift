@@ -47,4 +47,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         self.present(vc, animated: true, completion: nil)
         
     }
+    
+    @objc func handleOpenVC() {
+        
+    }
 }

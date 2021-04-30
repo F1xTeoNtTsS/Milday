@@ -20,9 +20,34 @@ class PlusViewController: UIViewController {
         
         setupNavigationBar()
         addSubViews()
-        constraintsTF()
+        setupTextView()
+        constraintsTextView()
+
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     
+    @objc func adjustForKeyboard(notification: Notification) {
+        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+
+        let keyboardScreenEndFrame = keyboardValue.cgRectValue
+        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
+
+        if notification.name == UIResponder.keyboardWillHideNotification {
+            textView.contentInset = .zero
+        } else {
+            textView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height + 40 - view.safeAreaInsets.bottom, right: 0)
+        }
+
+        textView.scrollIndicatorInsets = textView.contentInset
+
+        let selectedRange = textView.selectedRange
+        textView.scrollRangeToVisible(selectedRange)
+        
+        textView.keyboardDismissMode = .interactive
+    }
+
     func setupNavigationBar() {
         
         navbar.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 50)
@@ -37,15 +62,18 @@ class PlusViewController: UIViewController {
     
     func setupTextView() {
         textView.allowsEditingTextAttributes = true
-        textView.enablesReturnKeyAutomatically = true
+        //textView.enablesReturnKeyAutomatically = true
+        textView.font = UIFont.systemFont(ofSize: 16, weight: .light)
+        textView.isScrollEnabled = true
+        textView.keyboardAppearance = .dark
     }
     
-    func constraintsTF() {
+    func constraintsTextView() {
         textView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            textView.topAnchor.constraint(equalTo: navbar.bottomAnchor),
-            textView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            textView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            textView.topAnchor.constraint(equalTo: navbar.bottomAnchor, constant: 10),
+            textView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
+            textView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
             textView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         
         ])
