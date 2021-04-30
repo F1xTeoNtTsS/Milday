@@ -21,9 +21,6 @@ class PlusViewController: UIViewController {
         setupNavigationBar()
         addSubViews()
         constraintsTF()
-        
-        
-        
     }
     
     func setupNavigationBar() {
