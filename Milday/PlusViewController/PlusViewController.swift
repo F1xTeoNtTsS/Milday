@@ -9,20 +9,26 @@ import UIKit
 
 class PlusViewController: UIViewController {
 
-    let navbar = UINavigationBar()
-    let textView = UITextView()
+    private let navbar = UINavigationBar()
+    private let customTextView = CustomTextView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        isModalInPresentation = true
-        view.backgroundColor = .white
+        setupView()
         
-        setupNavigationBar()
-        addSubViews()
-        setupTextView()
-        constraintsTextView()
-
+        customTextView.setupTextView()
+        customTextView.constraintsTextView(view: view, navbar: navbar)
+        
+        keyboardNotification()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        customTextView.startEditing()
+    }
+    
+    private func keyboardNotification() {
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
@@ -35,19 +41,27 @@ class PlusViewController: UIViewController {
         let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
 
         if notification.name == UIResponder.keyboardWillHideNotification {
-            textView.contentInset = .zero
+            customTextView.textView.contentInset = .zero
         } else {
-            textView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height + 40 - view.safeAreaInsets.bottom, right: 0)
+            customTextView.textView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height + 40 - view.safeAreaInsets.bottom, right: 0)
         }
 
-        textView.scrollIndicatorInsets = textView.contentInset
+        customTextView.textView.scrollIndicatorInsets = customTextView.textView.contentInset
 
-        let selectedRange = textView.selectedRange
-        textView.scrollRangeToVisible(selectedRange)
+        let selectedRange = customTextView.selectedRange
+        customTextView.textView.scrollRangeToVisible(selectedRange)
         
-        textView.keyboardDismissMode = .interactive
+        customTextView.textView.keyboardDismissMode = .interactive
     }
 
+    func setupView() {
+        setupNavigationBar()
+        addSubViews()
+        
+        isModalInPresentation = true
+        view.backgroundColor = customTextView.backgroundColor
+    }
+    
     func setupNavigationBar() {
         
         navbar.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 50)
@@ -60,26 +74,6 @@ class PlusViewController: UIViewController {
         navbar.items = [navItem]
     }
     
-    func setupTextView() {
-        textView.allowsEditingTextAttributes = true
-        //textView.enablesReturnKeyAutomatically = true
-        textView.font = UIFont.systemFont(ofSize: 16, weight: .light)
-        textView.isScrollEnabled = true
-        textView.keyboardAppearance = .dark
-    }
-    
-    func constraintsTextView() {
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            textView.topAnchor.constraint(equalTo: navbar.bottomAnchor, constant: 10),
-            textView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
-            textView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
-            textView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        
-        ])
-    }
-    
-    
     @objc func closePlusVC() {
         self.dismiss(animated: true, completion: nil)
     }
@@ -88,7 +82,7 @@ class PlusViewController: UIViewController {
     
     private func addSubViews() {
         view.addSubview(navbar)
-        view.addSubview(textView)
+        view.addSubview(customTextView.textView)
     }
 
 }

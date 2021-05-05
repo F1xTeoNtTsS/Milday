@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2DDCDEB8264150980039C005 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DDCDEB7264150980039C005 /* CustomTextView.swift */; };
 		C9530FBE2637F58300C2110F /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9530FBD2637F58300C2110F /* CalendarViewController.swift */; };
 		C9530FC22637F62B00C2110F /* PlusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9530FC12637F62B00C2110F /* PlusViewController.swift */; };
 		C9AB623D262DFA2600E6708E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AB623C262DFA2600E6708E /* AppDelegate.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2DDCDEB7264150980039C005 /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		C9530FBD2637F58300C2110F /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		C9530FC12637F62B00C2110F /* PlusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusViewController.swift; sourceTree = "<group>"; };
 		C9AB6239262DFA2600E6708E /* Milday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Milday.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -59,6 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				C9530FC12637F62B00C2110F /* PlusViewController.swift */,
+				2DDCDEB7264150980039C005 /* CustomTextView.swift */,
 			);
 			path = PlusViewController;
 			sourceTree = "<group>";
@@ -206,6 +209,7 @@
 				C9AB6258262DFF0900E6708E /* ListViewController.swift in Sources */,
 				C9AB625E262E00A000E6708E /* MiddleButton.swift in Sources */,
 				C9AB623D262DFA2600E6708E /* AppDelegate.swift in Sources */,
+				2DDCDEB8264150980039C005 /* CustomTextView.swift in Sources */,
 				C9C5EB372636AFC200D887B3 /* TabBarController.swift in Sources */,
 				C9AB623F262DFA2600E6708E /* SceneDelegate.swift in Sources */,
 			);
