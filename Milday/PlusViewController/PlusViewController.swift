@@ -9,24 +9,29 @@ import UIKit
 
 class PlusViewController: UIViewController {
 
-    private let navbar = UINavigationBar()
-    private let customTextView = CustomTextView()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        customTV.textView.delegate = self
         setupView()
         
-        customTextView.setupTextView()
-        customTextView.constraintsTextView(view: view, navbar: navbar)
+        customTV.setupTextView()
+        customTV.constraintsTextView(view: view, navbar: navbar)
         
         keyboardNotification()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        customTextView.startEditing()
+        customTV.startEditing()
+        textViewDidChange(customTV.textView)
+         
     }
+    
+    private let navbar = UINavigationBar()
+    private let customTV = CustomTextView()
+    private let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneEdit))
     
     private func keyboardNotification() {
         let notificationCenter = NotificationCenter.default
@@ -41,17 +46,17 @@ class PlusViewController: UIViewController {
         let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
 
         if notification.name == UIResponder.keyboardWillHideNotification {
-            customTextView.textView.contentInset = .zero
+            customTV.textView.contentInset = .zero
         } else {
-            customTextView.textView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height + 40 - view.safeAreaInsets.bottom, right: 0)
+            customTV.textView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height + 40 - view.safeAreaInsets.bottom, right: 0)
         }
 
-        customTextView.textView.scrollIndicatorInsets = customTextView.textView.contentInset
+        customTV.textView.scrollIndicatorInsets = customTV.textView.contentInset
 
-        let selectedRange = customTextView.selectedRange
-        customTextView.textView.scrollRangeToVisible(selectedRange)
+        let selectedRange = customTV.selectedRange
+        customTV.textView.scrollRangeToVisible(selectedRange)
         
-        customTextView.textView.keyboardDismissMode = .interactive
+        customTV.textView.keyboardDismissMode = .interactive
     }
 
     func setupView() {
@@ -59,7 +64,7 @@ class PlusViewController: UIViewController {
         addSubViews()
         
         isModalInPresentation = true
-        view.backgroundColor = customTextView.backgroundColor
+        view.backgroundColor = customTV.backgroundColor
     }
     
     func setupNavigationBar() {
@@ -69,8 +74,8 @@ class PlusViewController: UIViewController {
 
         let navItem = UINavigationItem()
         navItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closePlusVC))
-        navItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: nil)
-
+        navItem.rightBarButtonItem = doneButton
+        doneButton.isEnabled = false
         navbar.items = [navItem]
     }
     
@@ -78,11 +83,31 @@ class PlusViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    
-    
-    private func addSubViews() {
-        view.addSubview(navbar)
-        view.addSubview(customTextView.textView)
+    @objc func doneEdit() {
+        self.dismiss(animated: true, completion: nil)
+        
+        if let text = customTV.textView.text {
+            print(text)
+        } else {
+            return
+        }
+        
     }
 
+    private func addSubViews() {
+        view.addSubview(navbar)
+        view.addSubview(customTV.textView)
+    }
+
+}
+
+extension PlusViewController: UITextViewDelegate {
+    
+    func textViewDidChange(_ textView: UITextView) {
+        if customTV.textView.text?.isEmpty == false {
+            doneButton.isEnabled = true
+        } else {
+            doneButton.isEnabled = false
+        }
+    }
 }

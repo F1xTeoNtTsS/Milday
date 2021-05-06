@@ -9,7 +9,10 @@ import UIKit
 
 class ListViewController: UIViewController {
     
-    let tableView = UITableView()
+    let days = [
+        Day(date: "06.05.21", description: "Happy day", text: "Some text for example")
+    ]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +24,8 @@ class ListViewController: UIViewController {
         self.navigationItem.title = "List of mildays"
         
     }
+    
+    private let tableView = UITableView()
 
     
     func setupTableView() {
@@ -52,12 +57,15 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return days.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        //cell.selectionStyle = .none
+        
+        cell.textLabel?.text = days[indexPath.row].date + " - \(days[indexPath.row].description)"
+        cell.backgroundColor = UIColor(white: 1, alpha: 0.1)
+    
         
         return cell
     }
