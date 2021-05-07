@@ -7,9 +7,13 @@
 
 import UIKit
 
-class PlusViewController: UIViewController {
+protocol AddDayDelegate {
+    func addDay(day: Day)
+}
 
+class PlusViewController: UIViewController {
     
+    var delegate: AddDayDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,13 +63,7 @@ class PlusViewController: UIViewController {
         customTV.textView.keyboardDismissMode = .interactive
     }
 
-    func setupView() {
-        setupNavigationBar()
-        addSubViews()
-        
-        isModalInPresentation = true
-        view.backgroundColor = customTV.backgroundColor
-    }
+    
     
     func setupNavigationBar() {
         
@@ -84,21 +82,31 @@ class PlusViewController: UIViewController {
     }
     
     @objc func doneEdit() {
-        self.dismiss(animated: true, completion: nil)
         
-        if let text = customTV.textView.text {
-            print(text)
-        } else {
+        guard let text = customTV.textView.text, customTV.textView.hasText else { print("Handle error")
             return
         }
         
+        let day = Day(date: "01.01.21", description: text, text: text)
+        delegate?.addDay(day: day)
+
+        customTV.textView.text.removeAll()
+        textViewDidChange(customTV.textView)
     }
 
+    
+    private func setupView() {
+        setupNavigationBar()
+        addSubViews()
+        
+        isModalInPresentation = true
+        view.backgroundColor = customTV.backgroundColor
+    }
+    
     private func addSubViews() {
         view.addSubview(navbar)
         view.addSubview(customTV.textView)
     }
-
 }
 
 extension PlusViewController: UITextViewDelegate {

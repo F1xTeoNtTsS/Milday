@@ -9,10 +9,7 @@ import UIKit
 
 class ListViewController: UIViewController {
     
-    let days = [
-        Day(date: "06.05.21", description: "Happy day", text: "Some text for example")
-    ]
-    
+    var days: [Day] = [Day(date: "11111", description: "qwerty", text: "ytrewq")]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,19 +20,19 @@ class ListViewController: UIViewController {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.title = "List of mildays"
         
+        
     }
     
-    private let tableView = UITableView()
+    let tableView = UITableView()
 
     
     func setupTableView() {
+        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.delegate = self
         tableView.dataSource = self
-        
     }
-    
 }
 
 extension ListViewController {
@@ -51,6 +48,9 @@ extension ListViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
+    
+    
+    
 }
 
 extension ListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -63,7 +63,9 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
-        cell.textLabel?.text = days[indexPath.row].date + " - \(days[indexPath.row].description)"
+        let day = days[indexPath.row]
+        
+        cell.textLabel?.text = day.date + " - \(day.description)"
         cell.backgroundColor = UIColor(white: 1, alpha: 0.1)
     
         
