@@ -12,6 +12,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     let middleButton = MiddleButton()
     let listVC = ListViewController()
     let calendarVC = CalendarViewController()
+    let plusVC = PlusViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,12 +44,28 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     
     
     @objc func openPlusVC(sender: UIButton) {
-        let vc = PlusViewController()
-        self.present(vc, animated: true, completion: nil)
+        
+        plusVC.delegate = self
+        
+        self.present(plusVC, animated: true, completion: nil)
+        
+        
         
     }
     
     @objc func handleOpenVC() {
         
     }
+}
+
+extension TabBarController: AddDayDelegate {
+    func addDay(day: Day) {
+        plusVC.dismiss(animated: true) {
+            self.listVC.days.append(day)
+            self.listVC.tableView.reloadData()
+        }
+    }
+    
+    
+    
 }
