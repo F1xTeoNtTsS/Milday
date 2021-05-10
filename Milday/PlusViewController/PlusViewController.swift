@@ -25,6 +25,8 @@ class PlusViewController: UIViewController {
         customTV.constraintsTextView(view: view, navbar: navbar)
         
         keyboardNotification()
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -69,16 +71,34 @@ class PlusViewController: UIViewController {
         
         navbar.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 50)
         navbar.backgroundColor = .none
+        navbar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
 
         let navItem = UINavigationItem()
         navItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closePlusVC))
         navItem.rightBarButtonItem = doneButton
+        navItem.title = "New awesome day"
         doneButton.isEnabled = false
         navbar.items = [navItem]
     }
     
     @objc func closePlusVC() {
-        self.dismiss(animated: true, completion: nil)
+        
+        let closeButtonAlert = UIAlertController(title: "Unsaved Changes", message: "Are you sure you want to Close?", preferredStyle: UIAlertController.Style.alert)
+        
+        closeButtonAlert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.default, handler: { action in
+            self.dismiss(animated: true, completion: nil)
+            self.customTV.textView.text.removeAll()
+            self.textViewDidChange(self.customTV.textView)
+        }))
+        closeButtonAlert.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.default))
+        
+        if customTV.textView.text?.isEmpty == false {
+            self.present(closeButtonAlert, animated: true)
+        } else {
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+        
     }
     
     @objc func doneEdit() {
@@ -87,11 +107,18 @@ class PlusViewController: UIViewController {
             return
         }
         
-        let day = Day(date: "01.01.21", description: text, text: text)
-        delegate?.addDay(day: day)
+        saveDay(text: text)
 
         customTV.textView.text.removeAll()
         textViewDidChange(customTV.textView)
+    }
+    
+    private func saveDay(text: String) {
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd-MM-yy"
+        let day = Day(date: "\(formatter.string(from: date))", description: text, text: text)
+        delegate?.addDay(day: day)
     }
 
     
