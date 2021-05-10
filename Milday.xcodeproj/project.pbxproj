@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2DDCDEB8264150980039C005 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DDCDEB7264150980039C005 /* CustomTextView.swift */; };
 		2DED7E142644052D00791C2D /* DaysModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DED7E132644052D00791C2D /* DaysModel.swift */; };
+		2DED7E182647EA6500791C2D /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DED7E172647EA6500791C2D /* CustomTableViewCell.swift */; };
+		2DED7E1A26488C7500791C2D /* ExtensionUITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DED7E1926488C7500791C2D /* ExtensionUITableView.swift */; };
 		C9530FBE2637F58300C2110F /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9530FBD2637F58300C2110F /* CalendarViewController.swift */; };
 		C9530FC22637F62B00C2110F /* PlusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9530FC12637F62B00C2110F /* PlusViewController.swift */; };
 		C9AB623D262DFA2600E6708E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AB623C262DFA2600E6708E /* AppDelegate.swift */; };
@@ -25,6 +27,8 @@
 /* Begin PBXFileReference section */
 		2DDCDEB7264150980039C005 /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		2DED7E132644052D00791C2D /* DaysModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysModel.swift; sourceTree = "<group>"; };
+		2DED7E172647EA6500791C2D /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		2DED7E1926488C7500791C2D /* ExtensionUITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUITableView.swift; sourceTree = "<group>"; };
 		C9530FBD2637F58300C2110F /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		C9530FC12637F62B00C2110F /* PlusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusViewController.swift; sourceTree = "<group>"; };
 		C9AB6239262DFA2600E6708E /* Milday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Milday.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,8 +96,8 @@
 				C9AB625C262E007700E6708E /* Views */,
 				C9C5EB352636AFA300D887B3 /* TabBar */,
 				C9AB625A262E005A00E6708E /* ListViewController */,
-				C9530FBC2637F55100C2110F /* CalendarViewController */,
 				C9530FC02637F60300C2110F /* PlusViewController */,
+				C9530FBC2637F55100C2110F /* CalendarViewController */,
 				C9BC89FA26389C6700D15FFA /* Helpers */,
 				C9AB6242262DFA2600E6708E /* Main.storyboard */,
 				C9AB6245262DFA2700E6708E /* Assets.xcassets */,
@@ -107,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				C9AB6257262DFF0900E6708E /* ListViewController.swift */,
+				2DED7E172647EA6500791C2D /* CustomTableViewCell.swift */,
 				2DED7E132644052D00791C2D /* DaysModel.swift */,
 			);
 			path = ListViewController;
@@ -123,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				C9BC89FB26389C8700D15FFA /* Icons.swift */,
+				2DED7E1926488C7500791C2D /* ExtensionUITableView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -208,6 +214,7 @@
 			files = (
 				C9530FC22637F62B00C2110F /* PlusViewController.swift in Sources */,
 				C9530FBE2637F58300C2110F /* CalendarViewController.swift in Sources */,
+				2DED7E182647EA6500791C2D /* CustomTableViewCell.swift in Sources */,
 				C9BC89FC26389C8700D15FFA /* Icons.swift in Sources */,
 				C9AB6258262DFF0900E6708E /* ListViewController.swift in Sources */,
 				C9AB625E262E00A000E6708E /* MiddleButton.swift in Sources */,
@@ -216,6 +223,7 @@
 				2DDCDEB8264150980039C005 /* CustomTextView.swift in Sources */,
 				C9C5EB372636AFC200D887B3 /* TabBarController.swift in Sources */,
 				C9AB623F262DFA2600E6708E /* SceneDelegate.swift in Sources */,
+				2DED7E1A26488C7500791C2D /* ExtensionUITableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,7 +9,8 @@ import UIKit
 
 class ListViewController: UIViewController {
     
-    var days: [Day] = [Day(date: "11111", description: "qwerty", text: "ytrewq")]
+    var days: [Day] = []
+    let cellId = "cell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +21,9 @@ class ListViewController: UIViewController {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.title = "List of mildays"
         
-        
+        days.append(Day(date: "28.10.92", description: "Test Day Description", text: "Test Day Text"))
+        days.append(Day(date: "28.10.92", description: "Test Day Description", text: "Test Day Text"))
+        days.append(Day(date: "28.10.92", description: "Test Day Description", text: "Test Day Text"))
     }
     
     let tableView = UITableView()
@@ -29,7 +32,7 @@ class ListViewController: UIViewController {
     func setupTableView() {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: cellId)
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -48,29 +51,24 @@ extension ListViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
-    
-    
-    
 }
 
 extension ListViewController: UITableViewDelegate, UITableViewDataSource {
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return days.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! CustomTableViewCell
         
-        let day = days[indexPath.row]
-        
-        cell.textLabel?.text = day.date + " - \(day.description)"
-        cell.backgroundColor = UIColor(white: 1, alpha: 0.1)
-    
-        
+        let currentLastItem = days[indexPath.row]
+        cell.day = currentLastItem
+        cell.layer.cornerRadius = 5
         return cell
     }
-
-
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
 }

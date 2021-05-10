@@ -19,7 +19,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         
         
         self.delegate = self
-        //self.selectedIndex = 1
         
         viewControllers = [
             setNavigationVC(rootViewController: listVC, title: "LIST", image: Icons.mainTabIcon!),
@@ -48,13 +47,10 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         plusVC.delegate = self
         
         self.present(plusVC, animated: true, completion: nil)
-        
-        
-        
     }
     
-    @objc func handleOpenVC() {
-        
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        self.listVC.tableView.scrollToTop()
     }
 }
 
@@ -63,9 +59,7 @@ extension TabBarController: AddDayDelegate {
         plusVC.dismiss(animated: true) {
             self.listVC.days.append(day)
             self.listVC.tableView.reloadData()
+            self.listVC.tableView.scrollToBottom()
         }
     }
-    
-    
-    
 }
