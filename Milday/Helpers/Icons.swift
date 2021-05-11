@@ -11,4 +11,7 @@ class Icons {
     
     static let mainTabIcon = UIImage(systemName: "list.bullet", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))
     static let secondTabIcon = UIImage(systemName: "calendar", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))
+    
+//    static let mainTabIcon = UIImage(systemName: "list.bullet", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))?.withTintColor(.systemGreen, renderingMode: .alwaysOriginal)
+//    static let secondTabIcon = UIImage(systemName: "calendar", withConfiguration: UIImage.SymbolConfiguration(weight: .semibold))?.withTintColor(.systemGreen, renderingMode: .alwaysOriginal)
 }

@@ -13,7 +13,7 @@ class CustomTableViewCell: UITableViewCell {
     var day: Day? {
         didSet {
             dayDate.text = day?.date
-            dayTitle.text = day?.text
+            dayTitle.text = day?.description
         }
     }
     
@@ -26,7 +26,7 @@ class CustomTableViewCell: UITableViewCell {
     
     private let dayTitle: UILabel = {
         let lbl = UILabel()
-        lbl.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        lbl.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         lbl.textAlignment = .left
         return lbl
     }()

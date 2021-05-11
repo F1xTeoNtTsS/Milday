@@ -18,7 +18,6 @@ class MiddleButton: UIButton {
         btn.layer.shadowOpacity = 0.2
         btn.layer.shadowOffset = CGSize(width: 2, height: 2)
         
-        
         tabbar.addSubview(btn)
         view.layoutIfNeeded()
         

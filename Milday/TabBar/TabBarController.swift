@@ -13,6 +13,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     let listVC = ListViewController()
     let calendarVC = CalendarViewController()
     let plusVC = PlusViewController()
+    let showVC = ShowViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
