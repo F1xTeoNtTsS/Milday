@@ -1,19 +1,31 @@
 //
-//  PlusViewController.swift
+//  ShowViewController.swift
 //  Milday
 //
-//  Created by Dmitrii Abanin on 4/27/21.
+//  Created by F1xTeoNtTsS on 10.05.2021.
 //
 
 import UIKit
 
-protocol AddDayDelegate {
-    func addDay(day: Day)
-}
-
-class PlusViewController: UIViewController {
+class ShowViewController: UIViewController {
     
-    var delegate: AddDayDelegate?
+    public var completion: ((String?) -> Void)?
+    
+    private var day: Day?
+    
+    init(day: Day) {
+            self.day = day
+           
+        super.init(nibName: nil, bundle: nil)
+        }
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,19 +37,11 @@ class PlusViewController: UIViewController {
         customTV.constraintsTextView(view: view, navbar: navbar)
         
         keyboardNotification()
-        
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        customTV.startEditing()
-        textViewDidChange(customTV.textView)
-         
+        customTV.textView.text = day!.text
     }
     
     private let navbar = UINavigationBar()
-    private let customTV = CustomTextView()
-    private let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneEdit))
+    let customTV = CustomTextView()
     
     private func keyboardNotification() {
         let notificationCenter = NotificationCenter.default
@@ -64,64 +68,37 @@ class PlusViewController: UIViewController {
 
         customTV.textView.keyboardDismissMode = .interactive
     }
-
-    
     
     func setupNavigationBar() {
         
         navbar.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 50)
-        navbar.backgroundColor = .clear
-        
+        navbar.backgroundColor = .none
         navbar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .regular), NSAttributedString.Key.foregroundColor: UIColor.systemGreen]
-        
-        
+
         let navItem = UINavigationItem()
-        navItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closePlusVC))
-        navItem.rightBarButtonItem = doneButton
-        navItem.title = "New awesome day"
-        doneButton.isEnabled = false
+        navItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeShowVC))
+        navItem.title = day!.description
         navbar.items = [navItem]
     }
     
-    @objc func closePlusVC() {
+    @objc func closeShowVC() {
         
-        let closeButtonAlert = UIAlertController(title: "Unsaved Changes", message: "Are you sure you want to Close?", preferredStyle: UIAlertController.Style.alert)
-        
-        closeButtonAlert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.default, handler: { action in
+        guard let text = customTV.textView.text, customTV.textView.hasText else {
             self.dismiss(animated: true, completion: nil)
-            self.customTV.textView.text.removeAll()
-            self.textViewDidChange(self.customTV.textView)
-        }))
-        closeButtonAlert.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.default))
-        
-        if customTV.textView.text?.isEmpty == false {
-            self.present(closeButtonAlert, animated: true)
-        } else {
-            self.dismiss(animated: true, completion: nil)
+            return editDay(text: "")
         }
-        
-        
-    }
-    
-    @objc func doneEdit() {
-        
-        guard let text = customTV.textView.text, customTV.textView.hasText else { print("Handle error")
-            return
-        }
-        
-        saveDay(text: text)
 
-        customTV.textView.text.removeAll()
-        textViewDidChange(customTV.textView)
+        editDay(text: text)
+        
+        self.dismiss(animated: true, completion: nil)
+        
+        
     }
     
-    private func saveDay(text: String) {
-        let date = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yy"
-        let day = Day(date: "\(formatter.string(from: date))", description: text, text: text)
-        delegate?.addDay(day: day)
+    private func editDay(text: String) {
+        completion?(text)
     }
+
     
     private func setupView() {
         setupNavigationBar()
@@ -137,13 +114,6 @@ class PlusViewController: UIViewController {
     }
 }
 
-extension PlusViewController: UITextViewDelegate {
-    
-    func textViewDidChange(_ textView: UITextView) {
-        if customTV.textView.text?.isEmpty == false {
-            doneButton.isEnabled = true
-        } else {
-            doneButton.isEnabled = false
-        }
-    }
+extension ShowViewController: UITextViewDelegate {
+
 }
