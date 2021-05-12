@@ -22,12 +22,19 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         self.delegate = self
         
         viewControllers = [
-            setNavigationVC(rootViewController: listVC, title: "LIST", image: Icons.mainTabIcon!),
-            setNavigationVC(rootViewController: calendarVC, title: "CALENDAR", image: Icons.secondTabIcon!)
+            setNavigationVC(rootViewController: listVC, title: "LIST", image: Icons.listTabIcon!),
+            setNavigationVC(rootViewController: calendarVC, title: "CALENDAR", image: Icons.calendarTabIcon!)
         ]
         
         let btn = middleButton.setupMiddleButton(view: view, tabbar: tabBar)
         btn.addTarget(self, action: #selector(openPlusVC), for: .touchUpInside)
+    }
+
+    @objc func openPlusVC(sender: UIButton) {
+        
+        plusVC.delegate = self
+        
+        self.present(plusVC, animated: true, completion: nil)
     }
     
     private func setNavigationVC(rootViewController: UIViewController, title: String, image: UIImage) -> UIViewController {
@@ -38,16 +45,9 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         item.title = title
         item.image = image
         navigationVC.tabBarItem = item
+        
+        
         return navigationVC
-    }
-    
-    
-    
-    @objc func openPlusVC(sender: UIButton) {
-        
-        plusVC.delegate = self
-        
-        self.present(plusVC, animated: true, completion: nil)
     }
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {

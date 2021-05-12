@@ -41,7 +41,7 @@ class CustomTableViewCell: UITableViewCell {
         dayTitle.translatesAutoresizingMaskIntoConstraints = false
         dayTitle.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
         dayTitle.topAnchor.constraint(equalTo: topAnchor, constant: 5).isActive = true
-        dayTitle.rightAnchor.constraint(equalTo: rightAnchor, constant: 5).isActive = true
+        dayTitle.rightAnchor.constraint(equalTo: rightAnchor, constant: -15).isActive = true
         
         dayDate.translatesAutoresizingMaskIntoConstraints = false
         dayDate.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true

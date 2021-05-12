@@ -21,11 +21,7 @@ class ListViewController: UIViewController {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.title = "List of mildays"
         
-        days.append(Day(date: "28.10.92", description: "Wonderful day", text: "Wonderfull day, because i was born"))
-        days.append(Day(date: "28.10.20", description: "Another wonderfull day", text: "Some Day"))
-        days.append(Day(date: "09.01.21", description: "Sad day", text: "Another day, little sad"))
-        
-        
+        setTestData()
     }
     
     let tableView = UITableView()
@@ -37,6 +33,13 @@ class ListViewController: UIViewController {
         tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: cellId)
         tableView.delegate = self
         tableView.dataSource = self
+    }
+    
+    func setTestData() {
+        days.append(Day(date: "28.10.92", description: "Wonderful day", text: "Wonderfull day, because i was born"))
+        days.append(Day(date: "28.10.20", description: "Another wonderfull day", text: "Some Day"))
+        days.append(Day(date: "09.01.21", description: "Sad day", text: "Another day, little sad"))
+        days.append(Day(date: "09.01.21", description: "Toooooo Loooooong Tiiiiiitttlllleeeeeeeeeeee", text: "Another day, little sad"))
     }
 }
 
@@ -78,6 +81,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         showVC.completion = { [weak self] text in
             DispatchQueue.main.async {
                 self?.days[indexPath.row].text = text!
+                self?.days[indexPath.row].description = text!
                 tableView.reloadData()
             }
         }

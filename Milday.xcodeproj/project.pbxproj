@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D78EA54264BC3C2005F3EE8 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D78EA53264BC3C2005F3EE8 /* Colors.swift */; };
 		2DDCDEB8264150980039C005 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DDCDEB7264150980039C005 /* CustomTextView.swift */; };
 		2DED7E142644052D00791C2D /* DaysModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DED7E132644052D00791C2D /* DaysModel.swift */; };
 		2DED7E182647EA6500791C2D /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DED7E172647EA6500791C2D /* CustomTableViewCell.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2D78EA53264BC3C2005F3EE8 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		2DDCDEB7264150980039C005 /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		2DED7E132644052D00791C2D /* DaysModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysModel.swift; sourceTree = "<group>"; };
 		2DED7E172647EA6500791C2D /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				C9BC89FB26389C8700D15FFA /* Icons.swift */,
+				2D78EA53264BC3C2005F3EE8 /* Colors.swift */,
 				2DED7E1926488C7500791C2D /* ExtensionUITableView.swift */,
 			);
 			path = Helpers;
@@ -218,6 +221,7 @@
 				C9530FC22637F62B00C2110F /* PlusViewController.swift in Sources */,
 				C9530FBE2637F58300C2110F /* CalendarViewController.swift in Sources */,
 				2DED7E182647EA6500791C2D /* CustomTableViewCell.swift in Sources */,
+				2D78EA54264BC3C2005F3EE8 /* Colors.swift in Sources */,
 				C9BC89FC26389C8700D15FFA /* Icons.swift in Sources */,
 				C9AB6258262DFF0900E6708E /* ListViewController.swift in Sources */,
 				C9AB625E262E00A000E6708E /* MiddleButton.swift in Sources */,
