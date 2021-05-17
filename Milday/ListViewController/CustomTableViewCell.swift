@@ -6,17 +6,15 @@
 //
 
 import UIKit
+import CoreData
 
 class CustomTableViewCell: UITableViewCell {
     
-    
-    var day: Day? {
-        didSet {
-            dayDate.text = day?.date
-            dayTitle.text = day?.description
-        }
+    func configureCell(day: NSManagedObject) {
+        dayDate.text = day.value(forKey: "date") as? String
+        dayTitle.text = day.value(forKey: "text") as? String
     }
-    
+            
     private let dayDate: UILabel = {
         let lbl = UILabel()
         lbl.font = UIFont.monospacedDigitSystemFont(ofSize: 10, weight: .light)
@@ -33,7 +31,6 @@ class CustomTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         
         addSubview(dayDate)
         addSubview(dayTitle)

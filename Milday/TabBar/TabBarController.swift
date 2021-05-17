@@ -8,12 +8,14 @@
 import UIKit
 
 class TabBarController: UITabBarController, UITabBarControllerDelegate {
-        
+    
     let middleButton = MiddleButton()
     let listVC = ListViewController()
     let calendarVC = CalendarViewController()
     let plusVC = PlusViewController()
     let showVC = ShowViewController()
+    
+    let controlData = ManageData()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +31,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         let btn = middleButton.setupMiddleButton(view: view, tabbar: tabBar)
         btn.addTarget(self, action: #selector(openPlusVC), for: .touchUpInside)
     }
-
+    
     @objc func openPlusVC(sender: UIButton) {
         
         plusVC.delegate = self
@@ -56,11 +58,14 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
 }
 
 extension TabBarController: AddDayDelegate {
-    func addDay(day: Day) {
+    
+    func addDay(date: String, text: String) {
         plusVC.dismiss(animated: true) {
-            self.listVC.days.append(day)
+            
+            self.controlData.saveData(date: date, text: text, array: &self.listVC.daysCD)
+            
             self.listVC.tableView.reloadData()
-            self.listVC.tableView.scrollToBottom()
+            self.listVC.tableView.scrollToTop()
         }
     }
 }

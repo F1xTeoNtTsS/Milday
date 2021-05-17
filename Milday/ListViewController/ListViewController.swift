@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import CoreData
 
 class ListViewController: UIViewController {
     
-    var days: [Day] = []
+    let manageData = ManageData()
+    var daysCD: [NSManagedObject] = []
     let cellId = "cell"
     
     override func viewDidLoad() {
@@ -21,11 +23,15 @@ class ListViewController: UIViewController {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.title = "List of mildays"
         
-        setTestData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        manageData.fetchData(object: &daysCD)
     }
     
     let tableView = UITableView()
-
     
     func setupTableView() {
         
@@ -33,13 +39,6 @@ class ListViewController: UIViewController {
         tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: cellId)
         tableView.delegate = self
         tableView.dataSource = self
-    }
-    
-    func setTestData() {
-        days.append(Day(date: "28.10.92", description: "Wonderful day", text: "Wonderfull day, because i was born"))
-        days.append(Day(date: "28.10.20", description: "Another wonderfull day", text: "Some Day"))
-        days.append(Day(date: "09.01.21", description: "Sad day", text: "Another day, little sad"))
-        days.append(Day(date: "09.01.21", description: "Toooooo Loooooong Tiiiiiitttlllleeeeeeeeeeee", text: "Another day, little sad"))
     }
 }
 
@@ -61,30 +60,32 @@ extension ListViewController {
 extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return days.count
+        //return days.count
+        return daysCD.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let day = daysCD[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! CustomTableViewCell
+        cell.configureCell(day: day)
         
-        let currentLastItem = days[indexPath.row]
-        cell.day = currentLastItem
-        cell.layer.cornerRadius = 5
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let day = days[indexPath.row]
+        let day = daysCD[indexPath.row]
         let showVC = ShowViewController(day: day)
         
-        showVC.completion = { [weak self] text in
-            DispatchQueue.main.async {
-                self?.days[indexPath.row].text = text!
-                self?.days[indexPath.row].description = text!
-                tableView.reloadData()
-            }
-        }
+        
+        
+        //        showVC.completion = { [weak self] text in
+        //            DispatchQueue.main.async {
+        //                self?.days[indexPath.row].text = text!
+        //                self?.days[indexPath.row].description = text!
+        //                tableView.reloadData()
+        //            }
+        //        }
         
         self.present(showVC, animated: true)
     }

@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import CoreData
 
 protocol AddDayDelegate {
-    func addDay(day: Day)
+    func addDay(date: String, text: String)
 }
 
 class PlusViewController: UIViewController {
@@ -17,7 +18,7 @@ class PlusViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         customTV.textView.delegate = self
         setupView()
         
@@ -25,14 +26,11 @@ class PlusViewController: UIViewController {
         customTV.constraintsTextView(view: view, navbar: navbar)
         
         keyboardNotification()
-        
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         customTV.startEditing()
         textViewDidChange(customTV.textView)
-         
     }
     
     private let navbar = UINavigationBar()
@@ -44,28 +42,26 @@ class PlusViewController: UIViewController {
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
-
+    
     @objc func adjustForKeyboard(notification: Notification) {
         guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
-
+        
         let keyboardScreenEndFrame = keyboardValue.cgRectValue
         let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
-
+        
         if notification.name == UIResponder.keyboardWillHideNotification {
             customTV.textView.contentInset = .zero
         } else {
             customTV.textView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height + 40 - view.safeAreaInsets.bottom, right: 0)
         }
-
+        
         customTV.textView.scrollIndicatorInsets = customTV.textView.contentInset
-
+        
         let selectedRange = customTV.selectedRange
         customTV.textView.scrollRangeToVisible(selectedRange)
-
+        
         customTV.textView.keyboardDismissMode = .interactive
     }
-
-    
     
     func setupNavigationBar() {
         
@@ -99,8 +95,6 @@ class PlusViewController: UIViewController {
         } else {
             self.dismiss(animated: true, completion: nil)
         }
-        
-        
     }
     
     @objc func doneEdit() {
@@ -110,17 +104,19 @@ class PlusViewController: UIViewController {
         }
         
         saveDay(text: text)
-
+        
         customTV.textView.text.removeAll()
         textViewDidChange(customTV.textView)
     }
-    
+
     private func saveDay(text: String) {
-        let date = Date()
+        
+        let currentDate = Date()
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yy"
-        let day = Day(date: "\(formatter.string(from: date))", description: text, text: text)
-        delegate?.addDay(day: day)
+        let date = formatter.string(from: currentDate)
+        
+        delegate?.addDay(date: date, text: text)
     }
     
     private func setupView() {
