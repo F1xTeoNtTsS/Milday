@@ -24,7 +24,8 @@ class CustomTableViewCell: UITableViewCell {
     
     private let dayTitle: UILabel = {
         let lbl = UILabel()
-        lbl.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        //lbl.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        lbl.font = UIFont(name: "Helvetica", size: 18)
         lbl.textAlignment = .left
         return lbl
     }()

@@ -78,6 +78,7 @@ class ShowViewController: UIViewController {
 
         let navItem = UINavigationItem()
         navItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeShowVC))
+        navItem.leftBarButtonItem?.tintColor = UIColor.systemGreen
         navItem.title = day?.value(forKey: "text") as? String
         navbar.items = [navItem]
     }

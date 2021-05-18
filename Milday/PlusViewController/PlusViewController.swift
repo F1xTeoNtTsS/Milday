@@ -73,7 +73,9 @@ class PlusViewController: UIViewController {
         
         let navItem = UINavigationItem()
         navItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closePlusVC))
+        navItem.leftBarButtonItem?.tintColor = UIColor.systemGreen
         navItem.rightBarButtonItem = doneButton
+        navItem.rightBarButtonItem?.tintColor = UIColor.systemGreen
         navItem.title = "New awesome day"
         doneButton.isEnabled = false
         navbar.items = [navItem]

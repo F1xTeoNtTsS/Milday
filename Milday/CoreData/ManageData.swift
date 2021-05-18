@@ -10,8 +10,8 @@ import CoreData
 
 class ManageData {
     
-    private let context = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.persistentContainer.viewContext
-    private let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "DayCD")
+    let context = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.persistentContainer.viewContext
+    let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "DayCD")
     
     func fetchData(object: inout [NSManagedObject]){
         
