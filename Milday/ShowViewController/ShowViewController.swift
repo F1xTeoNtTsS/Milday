@@ -6,14 +6,15 @@
 //
 
 import UIKit
+import CoreData
 
 class ShowViewController: UIViewController {
     
     public var completion: ((String?) -> Void)?
     
-    private var day: Day?
+    private var day: NSManagedObject?
     
-    init(day: Day) {
+    init(day: NSManagedObject) {
             self.day = day
            
         super.init(nibName: nil, bundle: nil)
@@ -37,7 +38,7 @@ class ShowViewController: UIViewController {
         customTV.constraintsTextView(view: view, navbar: navbar)
         
         keyboardNotification()
-        customTV.textView.text = day!.text
+        customTV.textView.text = day?.value(forKey: "text") as? String
     }
     
     private let navbar = UINavigationBar()
@@ -77,7 +78,7 @@ class ShowViewController: UIViewController {
 
         let navItem = UINavigationItem()
         navItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(closeShowVC))
-        navItem.title = day!.description
+        navItem.title = day?.value(forKey: "text") as? String
         navbar.items = [navItem]
     }
     
