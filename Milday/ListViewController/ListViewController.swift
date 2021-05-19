@@ -11,8 +11,8 @@ import CoreData
 class ListViewController: UIViewController {
     
     let manageData = ManageData()
-    var daysCD: [NSManagedObject] = []
     let cellId = "cell"
+    var daysCD: [NSManagedObject] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,15 +82,17 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         let day = daysCD[indexPath.row]
         let showVC = ShowViewController(day: day)
         
-        
-        
-        //        showVC.completion = { [weak self] text in
-        //            DispatchQueue.main.async {
-        //                self?.days[indexPath.row].text = text!
-        //                self?.days[indexPath.row].description = text!
-        //                tableView.reloadData()
-        //            }
-        //        }
+        showVC.completion = { [weak self] text in
+            DispatchQueue.main.async {
+                do {
+                    day.setValue(text, forKey: "text")
+                    tableView.reloadData()
+                    try self!.manageData.context.save()
+                } catch let error as NSError {
+                    print(error.localizedDescription)
+                }
+            }
+        }
         
         self.present(showVC, animated: true)
     }
@@ -105,7 +107,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
             daysCD.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         } catch let error as NSError {
-            print(error.localizedDescription)
+            print("Could not delete. \(error), \(error.userInfo)")
         }
     }
     

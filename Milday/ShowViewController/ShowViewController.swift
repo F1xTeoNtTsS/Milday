@@ -42,7 +42,7 @@ class ShowViewController: UIViewController {
     }
     
     private let navbar = UINavigationBar()
-    let customTV = CustomTextView()
+    private let customTV = CustomTextView()
     
     private func keyboardNotification() {
         let notificationCenter = NotificationCenter.default

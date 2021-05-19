@@ -23,7 +23,7 @@ class ManageData {
         }
     }
     
-    func saveData(date: String, text: String, array: inout [NSManagedObject]) {
+    func addObject(date: String, text: String, array: inout [NSManagedObject]) {
         
         let entity =
             NSEntityDescription.entity(forEntityName: "DayCD",
