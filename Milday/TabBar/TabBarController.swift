@@ -62,7 +62,7 @@ extension TabBarController: AddDayDelegate {
     func addDay(date: String, text: String) {
         plusVC.dismiss(animated: true) {
             
-            self.controlData.saveData(date: date, text: text, array: &self.listVC.daysCD)
+            self.controlData.addObject(date: date, text: text, array: &self.listVC.daysCD)
             
             self.listVC.tableView.reloadData()
             self.listVC.tableView.scrollToTop()
